@@ -1,6 +1,15 @@
+## author: Debora Schierano aka Emeraldas Hofmann
+## corse project in Data Science at "Johns Hopkins Bloomberg School of Public Health"
+
+## HOW TO WORK
+## download the script in "./yourdirectory"
+## open R (or RStudio) and set "./yourdirectory" as your work-directory 
+##    > setwd("./yourdirectory")
+##    > source("./plot1.R")
+##    > plot1()
+
 library(dplyr)
 library(lubridate)
-
 
 file_download <- function(){
   if(!file.exists("./data_energy")){dir.create("./data_energy/")}
@@ -31,10 +40,14 @@ plot1 <- function(){
   # serch to subset dataframe, if no exist in wd call make_dataset() function
   if(sum(ls() == "hpc_sub") == 0){hpc_sub <- make_dataset()}
   
-  # MAKE PLOT 1
+  # MAKE PLOT 1 on screen
+  hist(hpc_sub$Global_active_power, col = "red", xlab = "Global Active Power (kilowatts)", main = "Global Active Power")
+  
+  # PRINT PLOT 1 IN PNG FILE
   png(filename = "./plot1.png", width = 480, height = 480)
   hist(hpc_sub$Global_active_power, col = "red", xlab = "Global Active Power (kilowatts)", main = "Global Active Power")
   dev.off()
+  
 }
 
 

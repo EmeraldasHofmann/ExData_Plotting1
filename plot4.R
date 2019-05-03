@@ -1,3 +1,13 @@
+## author: Debora Schierano aka Emeraldas Hofmann
+## corse project in Data Science at "Johns Hopkins Bloomberg School of Public Health"
+
+## HOW TO WORK
+## download the script in "./yourdirectory"
+## open R (or RStudio) and set "./yourdirectory" as your work-directory 
+##    > setwd("./yourdirectory")
+##    > source("./plot4.R")
+##    > plot4()
+
 library(dplyr)
 library(lubridate)
 
@@ -31,7 +41,27 @@ plot4 <- function(){
   if(sum(ls() == "hpc_sub") == 0){hpc_sub <- make_dataset()}
   datetime <- dmy_hms(paste(hpc_sub$Date, hpc_sub$Time))
   
-  # MAKE PLOT 4
+  # MAKE PLOT 4 on screen
+  par(mfrow = c(2,2))
+  
+  # plot (1,1)
+  plot(datetime, hpc_sub$Global_active_power, type = "l",   xlab ="", ylab = "Global Active Power")
+  
+  # plot (1,2)
+  plot(datetime,  hpc_sub$Voltage,  type = "l", xlab = "datetime", ylab = "Voltage")
+  
+  # plot(2,1)
+  plot(datetime, hpc_sub$Sub_metering_1, type = "l",   xlab ="", ylab = "Energy sub metering")
+  lines(datetime, hpc_sub$Sub_metering_2,  col = "red")
+  lines(datetime, hpc_sub$Sub_metering_3,  col = "blue")
+  
+  legend("topright", bty = "n", lty=1, col = c("black",  "red", "blue"), legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"))
+  
+  # plot 4 (2,2)
+  plot(datetime, hpc_sub$Global_reactive_power, type = "l", ylab = "Global_reactive_power")
+  
+  
+  # PRINT PLOT 4 IN PNG FILE
   png(filename = "./plot4.png", width = 480, height = 480)
   par(mfrow = c(2,2))
   
@@ -52,4 +82,5 @@ plot4 <- function(){
   plot(datetime, hpc_sub$Global_reactive_power, type = "l", ylab = "Global_reactive_power")
   
   dev.off()
+  par(mfrow=c(1,1))
 }

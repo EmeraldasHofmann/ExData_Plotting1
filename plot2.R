@@ -1,3 +1,13 @@
+## author: Debora Schierano aka Emeraldas Hofmann
+## corse project in Data Science at "Johns Hopkins Bloomberg School of Public Health"
+
+## HOW TO WORK
+## download the script in "./yourdirectory"
+## open R (or RStudio) and set "./yourdirectory" as your work-directory 
+##    > setwd("./yourdirectory")
+##    > source("./plot2.R")
+##    > plot2()
+
 library(dplyr)
 library(lubridate)
 
@@ -34,6 +44,9 @@ plot2 <- function(){
   datetime <- dmy_hms(paste(hpc_sub$Date, hpc_sub$Time))
   
   # MAKE PLOT 2
+  plot(datetime, hpc_sub$Global_active_power, type = "l",   xlab ="", ylab = "Global Active Power (kilowatts)")
+  
+  # PRINT PLOT 2 IN PNG FILE
   png(filename = "./plot2.png", width = 480, height = 480)
   plot(datetime, hpc_sub$Global_active_power, type = "l",   xlab ="", ylab = "Global Active Power (kilowatts)")
   dev.off()

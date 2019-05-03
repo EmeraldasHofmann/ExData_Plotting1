@@ -1,3 +1,13 @@
+## author: Debora Schierano aka Emeraldas Hofmann
+## corse project in Data Science at "Johns Hopkins Bloomberg School of Public Health"
+
+## HOW TO WORK
+## download the script in "./yourdirectory"
+## open R (or RStudio) and set "./yourdirectory" as your work-directory 
+##    > setwd("./yourdirectory")
+##    > source("./plot3.R")
+##    > plot3()
+
 library(dplyr)
 library(lubridate)
 
@@ -32,7 +42,14 @@ plot3 <- function(){
   if(sum(ls() == "hpc_sub") == 0){hpc_sub <- make_dataset()}
   datetime <- dmy_hms(paste(hpc_sub$Date, hpc_sub$Time))
   
-  # MAKE PLOT 3
+  # MAKE PLOT 3 on screen
+  plot(datetime, hpc_sub$Sub_metering_1, type = "l",   xlab ="", ylab = "Energy sub metering")
+  lines(datetime, hpc_sub$Sub_metering_2,  col = "red")
+  lines(datetime, hpc_sub$Sub_metering_3,  col = "blue")
+  
+  legend("topright", lty=1, col = c("black",  "red", "blue"), legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"))
+  
+  # PRIN PLOT 3 IN PNG FILE
   png(filename = "./plot3.png", width = 480, height = 480)
   
   plot(datetime, hpc_sub$Sub_metering_1, type = "l",   xlab ="", ylab = "Energy sub metering")
